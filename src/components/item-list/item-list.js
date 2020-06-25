@@ -1,23 +1,19 @@
 import React, { Component } from 'react'
-import SwapiService from '../../services/swapi-service'
 import Spinner from '../spinner'
 import ErrorIndicator from '../error-indicator'
 
 import './item-list.css'
 
 export default class ItemList extends Component {
-  swapiService = new SwapiService()
-
   state = {
-    peopleList: null,
+    items: [],
     error: false,
   }
 
   componentDidMount() {
-    this.swapiService
-      .getAllPeople()
-      .then(peopleList => {
-        this.setState({ peopleList })
+    this.props.fetchList()
+      .then(items => {
+        this.setState({ items })
       })
       .catch(this.onError)
   }
@@ -40,19 +36,19 @@ export default class ItemList extends Component {
   }
 
   render() {
-    const { peopleList, error } = this.state
+    const { items, error } = this.state
 
     if (error) {
       return <ErrorIndicator />
-    } else if (!peopleList) {
+    } else if (!items) {
       return <Spinner />
     }
 
-    const items = this.renderItems(peopleList)
+    const listItems = this.renderItems(items)
 
     return (
       <ul className="item-list list-group">
-        {items}
+        {listItems}
       </ul>
     )
   }
