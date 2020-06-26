@@ -7,7 +7,7 @@ import './people-page.css'
 
 export default class PeoplePage extends Component {
   swapiService = new SwapiService()
-  
+
   state = {
     selectedPerson: null
   }
@@ -24,6 +24,7 @@ export default class PeoplePage extends Component {
           <ItemList
             onItemSelected={this.onPersonSelected}
             fetchList={this.swapiService.getAllPeople}
+            renderItem={item => item.name}
           />
         </div>
         <div className="col-md-6">
