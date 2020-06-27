@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
+
 import ItemList from '../item-list'
 import PersonDetails from '../person-details'
+import Row from '../row'
 import SwapiService from '../../services/swapi-service'
 
 import './people-page.css'
@@ -18,19 +20,16 @@ export default class PeoplePage extends Component {
 
   render() {
     const { selectedPerson } = this.state
-    return (
-      <div className="row mb2">
-        <div className="col-md-6">
-          <ItemList
-            onItemSelected={this.onPersonSelected}
-            fetchList={this.swapiService.getAllPeople}
-            renderItem={item => item.name}
-          />
-        </div>
-        <div className="col-md-6">
-          <PersonDetails selected={selectedPerson} />
-        </div>
-      </div>
+
+    const itemList = (
+      <ItemList
+        onItemSelected={this.onPersonSelected}
+        fetchList={this.swapiService.getAllPeople}
+        renderItem={item => item.name}
+      />
     )
+    const personDetails = <PersonDetails selected={selectedPerson} />
+
+    return <Row left={itemList} right={personDetails} />
   }
 }
