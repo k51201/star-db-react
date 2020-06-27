@@ -42,6 +42,10 @@ export default class PersonDetails extends Component {
     this.setState({ error: true, loading: false })
   }
 
+  boom() {
+    this.a.b = 1
+  }
+
   render() {
     if (!this.state.person) {
       return <span>Select a person from the list</span>
@@ -78,6 +82,11 @@ const PersonView = ({ person: { id, name, gender, birthYear, eyeColor } }) => {
             <span>{eyeColor}</span>
           </li>
         </ul>
+        <button
+          className="btn btn-warning btn-lg"
+          onClick={() => this.boom}>
+          Kill
+        </button>
       </div>
     </div>
   )

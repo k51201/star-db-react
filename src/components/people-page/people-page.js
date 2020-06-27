@@ -6,6 +6,7 @@ import Row from '../row'
 import SwapiService from '../../services/swapi-service'
 
 import './people-page.css'
+import ErrorBoundary from '../error-boundary'
 
 export default class PeoplePage extends Component {
   swapiService = new SwapiService()
@@ -28,7 +29,11 @@ export default class PeoplePage extends Component {
         renderItem={item => item.name}
       />
     )
-    const personDetails = <PersonDetails selected={selectedPerson} />
+    const personDetails = (
+      <ErrorBoundary>
+        <PersonDetails selected={selectedPerson} />
+      </ErrorBoundary>
+    )
 
     return <Row left={itemList} right={personDetails} />
   }
