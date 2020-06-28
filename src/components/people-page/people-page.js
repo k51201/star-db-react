@@ -5,36 +5,40 @@ import ItemList from '../item-list'
 import ItemDetails, { ItemField } from '../item-details'
 import Row from '../row'
 import SwapiService from '../../services/swapi-service'
+import SwImageService from '../../services/sw-image-service'
 
 import './people-page.css'
 
 export default class PeoplePage extends Component {
   swapiService = new SwapiService()
+  swImageService = new SwImageService()
 
   state = {
-    selectedPerson: null
+    selected: null
   }
 
-  onPersonSelected = id => {
-    this.setState({ selectedPerson: id })
+  onSelect = id => {
+    this.setState({ selected: id })
   }
 
   render() {
-    const { selectedPerson } = this.state
+    const { selected } = this.state
+    const { getAllPeople, getPerson } = this.swapiService
+    const { getPersonImageUrl } = this.swImageService
 
     const itemList = (
       <ItemList
-        onItemSelected={this.onPersonSelected}
-        fetchData={this.swapiService.getAllPeople}
+        onItemSelected={this.onSelect}
+        fetchData={getAllPeople}
         renderItem={item => item.name}
       />
     )
     const personDetails = (
       <ErrorBoundary>
         <ItemDetails
-          selected={selectedPerson}
-          fetchItem={this.swapiService.getPerson}
-          getImageUrl={id => `https://starwars-visualguide.com/assets/img/characters/${id}.jpg`}
+          selected={selected}
+          fetchItem={getPerson}
+          getImageUrl={getPersonImageUrl}
         >
           <ItemField label="Gender" field="gender" />
           <ItemField label="Birth Year" field="birthYear" />

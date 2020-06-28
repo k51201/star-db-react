@@ -5,36 +5,40 @@ import ItemList from '../item-list'
 import ItemDetails, { ItemField } from '../item-details'
 import Row from '../row'
 import SwapiService from '../../services/swapi-service'
+import SwImageService from '../../services/sw-image-service'
 
 import './starship-page.css'
 
 export default class StarshipPage extends Component {
   swapiService = new SwapiService()
+  swImageService = new SwImageService()
 
   state = {
-    selectedPerson: null
+    selected: null
   }
 
-  onPersonSelected = id => {
-    this.setState({ selectedPerson: id })
+  onSelect = id => {
+    this.setState({ selected: id })
   }
 
   render() {
-    const { selectedPerson } = this.state
+    const { selected } = this.state
+    const { getStarship, getAllStarships } = this.swapiService
+    const { getStarshipImageUrl } = this.swImageService
 
     const itemList = (
       <ItemList
-        onItemSelected={this.onPersonSelected}
-        fetchData={this.swapiService.getAllStarships}
+        onItemSelected={this.onSelect}
+        fetchData={getAllStarships}
         renderItem={item => item.name}
       />
     )
     const shipDetails = (
       <ErrorBoundary>
         <ItemDetails
-          selected={selectedPerson}
-          fetchItem={this.swapiService.getStarship}
-          getImageUrl={id => `https://starwars-visualguide.com/assets/img/starships/${id}.jpg`}
+          selected={selected}
+          fetchItem={getStarship}
+          getImageUrl={getStarshipImageUrl}
         >
           <ItemField label="Model" field="model" />
           <ItemField label="Manufacturer" field="manufacturer" />
