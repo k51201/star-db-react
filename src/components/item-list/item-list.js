@@ -3,7 +3,7 @@ import { withData } from '../hoc-helpers'
 
 import './item-list.css'
 
-const ItemList = ({ data, renderItem, onItemSelected }) => {
+const ItemList = ({ data, children: renderItem, onItemSelected }) => {
   const listItems = data.map(item => {
     const { id } = item
     return (
@@ -23,4 +23,4 @@ const ItemList = ({ data, renderItem, onItemSelected }) => {
   )
 }
 
-export default withData(ItemList)
+export default ItemList

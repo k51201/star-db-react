@@ -9,7 +9,7 @@ const withData = (View, fetchData) => class extends Component {
   }
 
   componentDidMount() {
-    this.props.fetchData()
+    fetchData()
       .then(data => this.setState({ data }))
       .catch(err => this.setState({ error: true }))
   }
