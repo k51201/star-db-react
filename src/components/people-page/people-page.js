@@ -18,11 +18,7 @@ export default class PeoplePage extends Component {
   render() {
     const { selected } = this.state
 
-    const itemList = (
-      <PersonList onItemSelected={this.onSelect}>
-        {item => item.name}
-      </PersonList>
-    )
+    const itemList = <PersonList onItemSelected={this.onSelect} />
     const personDetails = (
       <ErrorBoundary>
         <PersonDetails selected={selected} />

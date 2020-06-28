@@ -18,11 +18,7 @@ export default class StarshipPage extends Component {
   render() {
     const { selected } = this.state
 
-    const itemList = (
-      <StarshipList onItemSelected={this.onSelect}>
-        {item => item.name}
-      </StarshipList>
-    )
+    const itemList = <StarshipList onItemSelected={this.onSelect} />
     const shipDetails = (
       <ErrorBoundary>
         <StarshipDetails selected={selected} />

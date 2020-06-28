@@ -1,5 +1,4 @@
 import React from 'react'
-import { withData } from '../hoc-helpers'
 
 import './item-list.css'
 
