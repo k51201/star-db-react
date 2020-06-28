@@ -25,7 +25,7 @@ export default class StarshipPage extends Component {
     const itemList = (
       <ItemList
         onItemSelected={this.onPersonSelected}
-        fetchList={this.swapiService.getAllStarships}
+        fetchData={this.swapiService.getAllStarships}
         renderItem={item => item.name}
       />
     )
