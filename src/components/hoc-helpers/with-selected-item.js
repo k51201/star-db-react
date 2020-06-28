@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import ErrorIndicator from '../error-indicator'
 import Spinner from '../spinner'
 
-const withSelectedItem = (View, fetchItem, getImageUrl) => class extends Component {
+const withSelectedItem = (View) => class extends Component {
   state = {
     item: null,
     imageUrl: null,
@@ -22,7 +22,7 @@ const withSelectedItem = (View, fetchItem, getImageUrl) => class extends Compone
   }
 
   updateItem() {
-    const { selected } = this.props
+    const { selected, fetchItem, getImageUrl } = this.props
     if (selected) {
       fetchItem(selected)
         .then(item => this.setState({
@@ -35,7 +35,7 @@ const withSelectedItem = (View, fetchItem, getImageUrl) => class extends Compone
   }
 
   render() {
-      const { item, imageUrl, loading, error } = this.state
+    const { item, imageUrl, loading, error } = this.state
     if (!item) {
       return <span>Select an item from the list</span>
     } else {

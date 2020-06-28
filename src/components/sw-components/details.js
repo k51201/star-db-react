@@ -1,14 +1,17 @@
 import React from 'react'
 import ItemDetails, { ItemField } from '../item-details'
-import { withSelectedItem } from '../hoc-helpers'
-import SwapiService from '../../services/swapi-service'
-import SwImageService from '../../services/sw-image-service'
-
-const { getPerson, getPlanet, getStarship } = new SwapiService()
-const { getPersonImageUrl, getPlanetImageUrl, getStarshipImageUrl } = new SwImageService()
+import { withSelectedItem, withServices } from '../hoc-helpers'
 
 const PersonDetails = (props) => {
-  const Details = withSelectedItem(ItemDetails, getPerson, getPersonImageUrl)
+  const Details = withServices(
+    withSelectedItem(ItemDetails),
+    ({ swapiService, swImageService }) => {
+      return {
+        fetchItem: swapiService.getPerson,
+        getImageUrl: swImageService.getPersonImageUrl
+      }
+    }
+  )
   return (
     <Details {...props}>
       <ItemField label="Gender" field="gender" />
@@ -19,7 +22,15 @@ const PersonDetails = (props) => {
 }
 
 const PlanetDetails = (props) => {
-  const Details = withSelectedItem(ItemDetails, getPlanet, getPlanetImageUrl)
+  const Details = withServices(
+    withSelectedItem(ItemDetails),
+    ({ swapiService, swImageService }) => {
+      return {
+        fetchItem: swapiService.getPlanet,
+        getImageUrl: swImageService.getPlanetImageUrl
+      }
+    }
+  )
   return (
     <Details {...props}>
       <ItemField label="Population" field="population" />
@@ -30,7 +41,15 @@ const PlanetDetails = (props) => {
 }
 
 const StarshipDetails = (props) => {
-  const Details = withSelectedItem(ItemDetails, getStarship, getStarshipImageUrl)
+  const Details = withServices(
+    withSelectedItem(ItemDetails),
+    ({ swapiService, swImageService }) => {
+      return {
+        fetchItem: swapiService.getStarship,
+        getImageUrl: swImageService.getStarshipImageUrl
+      }
+    }
+  )
   return (
     <Details {...props}>
       <ItemField label="Model" field="model" />

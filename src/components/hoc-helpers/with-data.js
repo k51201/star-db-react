@@ -2,14 +2,14 @@ import React, { Component } from 'react'
 import ErrorIndicator from '../error-indicator'
 import Spinner from '../spinner'
 
-const withData = (View, fetchData) => class extends Component {
+const withData = (View) => class extends Component {
   state = {
     data: [],
     error: false,
   }
 
   componentDidMount() {
-    fetchData()
+    this.props.fetchData()
       .then(data => this.setState({ data }))
       .catch(err => this.setState({ error: true }))
   }
