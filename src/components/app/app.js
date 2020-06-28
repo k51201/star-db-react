@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 
 import Header from '../header'
 import PeoplePage from '../people-page'
+import StarshipPage from '../starship-page'
 import RandomPlanet from '../random-planet'
 
 import './app.css'
@@ -31,6 +32,7 @@ export default class App extends Component {
           Toggle Random Planet
         </button>
         <PeoplePage />
+        <StarshipPage />
       </div>
     )
   }
