@@ -1,10 +1,12 @@
 import React from 'react'
 
-const PlanetView = ({ planet: { id, name, population, rotationPeriod, diameter } = {} }) => {
+const PlanetView = ({ planet, getImageUrl }) => {
+  const { id, name, population, rotationPeriod, diameter } = planet
+
   return (
     <React.Fragment>
       <img className="planet-image"
-        src={`https://starwars-visualguide.com/assets/img/planets/${id}.jpg`}
+        src={getImageUrl(id)}
         alt={name} />
       <div>
         <h4>{name}</h4>

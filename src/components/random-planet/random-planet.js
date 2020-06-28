@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 
 import SwapiService from '../../services/swapi-service'
+import SwImageService from '../../services/sw-image-service'
 import Spinner from '../spinner'
 import PlanetView from './planet-view'
 import ErrorIndicator from '../error-indicator'
@@ -9,6 +10,7 @@ import './random-planet.css'
 
 export default class RandomPlanet extends Component {
   swapiService = new SwapiService()
+  swImageService = new SwImageService()
 
   state = {
     planet: null,
@@ -43,10 +45,12 @@ export default class RandomPlanet extends Component {
 
   render() {
     const { planet, loading, error } = this.state
+    const { getPlanetImageUrl } = this.swImageService
 
     const hasData = planet && !(loading || error)
     const content = hasData ?
-      <PlanetView planet={planet} /> : (error ? <ErrorIndicator /> : <Spinner />)
+      <PlanetView planet={planet} getImageUrl={getPlanetImageUrl} /> :
+      (error ? <ErrorIndicator /> : <Spinner />)
 
     return (
       <div className="random-planet jumbotron rounded">
