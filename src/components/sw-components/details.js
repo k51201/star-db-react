@@ -3,15 +3,13 @@ import ItemDetails, { ItemField } from '../item-details'
 import { withSelectedItem, withServices } from '../hoc-helpers'
 
 const PersonDetails = (props) => {
-  const Details = withServices(
-    withSelectedItem(ItemDetails),
-    ({ swapiService, swImageService }) => {
-      return {
-        fetchItem: swapiService.getPerson,
-        getImageUrl: swImageService.getPersonImageUrl
-      }
+  const serviceToProps = ({ swapiService, swImageService }) => {
+    return {
+      fetchItem: swapiService.getPerson,
+      getImageUrl: swImageService.getPersonImageUrl
     }
-  )
+  }
+  const Details = withServices(serviceToProps)(withSelectedItem(ItemDetails))
   return (
     <Details {...props}>
       <ItemField label="Gender" field="gender" />
@@ -22,15 +20,13 @@ const PersonDetails = (props) => {
 }
 
 const PlanetDetails = (props) => {
-  const Details = withServices(
-    withSelectedItem(ItemDetails),
-    ({ swapiService, swImageService }) => {
-      return {
-        fetchItem: swapiService.getPlanet,
-        getImageUrl: swImageService.getPlanetImageUrl
-      }
+  const serviceToProps = ({ swapiService, swImageService }) => {
+    return {
+      fetchItem: swapiService.getPlanet,
+      getImageUrl: swImageService.getPlanetImageUrl
     }
-  )
+  }
+  const Details = withServices(serviceToProps)(withSelectedItem(ItemDetails))
   return (
     <Details {...props}>
       <ItemField label="Population" field="population" />
@@ -41,15 +37,13 @@ const PlanetDetails = (props) => {
 }
 
 const StarshipDetails = (props) => {
-  const Details = withServices(
-    withSelectedItem(ItemDetails),
-    ({ swapiService, swImageService }) => {
-      return {
-        fetchItem: swapiService.getStarship,
-        getImageUrl: swImageService.getStarshipImageUrl
-      }
+  const serviceToProps = ({ swapiService, swImageService }) => {
+    return {
+      fetchItem: swapiService.getStarship,
+      getImageUrl: swImageService.getStarshipImageUrl
     }
-  )
+  }
+  const Details = withServices(serviceToProps)(withSelectedItem(ItemDetails))
   return (
     <Details {...props}>
       <ItemField label="Model" field="model" />

@@ -1,7 +1,7 @@
 import React from 'react'
 import { ServiceConsumer } from '../ctx'
 
-const withServices = (Wrapped, mapToProps) => (props) => {
+const withServices = mapToProps => Wrapped => props => {
   return (
     <ServiceConsumer>
       {(services) => <Wrapped {...props} {...mapToProps(services)} />}
