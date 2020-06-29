@@ -3,7 +3,6 @@ import ItemList from '../item-list'
 import { withData, withChildFunction, withServices } from '../hoc-helpers'
 
 const personRender = ({ name, birthYear }) => <span>{name} ({birthYear})</span>
-const planetRender = ({ name }) => <span>{name}</span>
 const starshipRender = ({ name, model }) => <span>{name} ({model})</span>
 
 const svcToPeopleProps = ({ swapiService }) => { return { fetchData: swapiService.getAllPeople } }
@@ -14,7 +13,7 @@ const PersonList = withServices(svcToPeopleProps)(
   withData(withChildFunction(personRender)(ItemList))
 )
 const PlanetList = withServices(svcToPlanetProps)(
-  withData(withChildFunction(planetRender)(ItemList))
+  withData(withChildFunction()(ItemList))
 )
 const StarshipList = withServices(svcToStarshipProps)(
   withData(withChildFunction(starshipRender)(ItemList))

@@ -1,16 +1,16 @@
 import React, { Component } from 'react'
 
-import SwapiService from '../../services/swapi-service'
-import SwImageService from '../../services/sw-image-service'
 import Spinner from '../spinner'
 import PlanetView from './planet-view'
 import ErrorIndicator from '../error-indicator'
+import { withServices } from '../hoc-helpers'
 
 import './random-planet.css'
 
-export default class RandomPlanet extends Component {
-  swapiService = new SwapiService()
-  swImageService = new SwImageService()
+class RandomPlanet extends Component {
+  static defaultProps = {
+    updInterval: 10000
+  }
 
   state = {
     planet: null,
@@ -19,8 +19,9 @@ export default class RandomPlanet extends Component {
   }
 
   componentDidMount() {
+    const { updInterval } = this.props
     this.updatePlanet()
-    this.interval = setInterval(this.updatePlanet, 3000)
+    this.interval = setInterval(this.updatePlanet, updInterval)
   }
 
   componentWillUnmount() {
@@ -37,19 +38,18 @@ export default class RandomPlanet extends Component {
 
   updatePlanet = () => {
     const id = Math.floor(Math.random() * 25) + 2
-    this.swapiService
-      .getPlanet(id)
+    this.props.fetchData(id)
       .then(this.onFetchPlanet)
       .catch(this.onError)
   }
 
   render() {
     const { planet, loading, error } = this.state
-    const { getPlanetImageUrl } = this.swImageService
+    const { getImageUrl } = this.props
 
     const hasData = planet && !(loading || error)
     const content = hasData ?
-      <PlanetView planet={planet} getImageUrl={getPlanetImageUrl} /> :
+      <PlanetView planet={planet} getImageUrl={getImageUrl} /> :
       (error ? <ErrorIndicator /> : <Spinner />)
 
     return (
@@ -59,3 +59,12 @@ export default class RandomPlanet extends Component {
     )
   }
 }
+
+const svcToProps = ({ swapiService, swImageService }) => {
+  return {
+    fetchData: swapiService.getPlanet,
+    getImageUrl: swImageService.getPlanetImageUrl
+  }
+}
+
+export default withServices(svcToProps)(RandomPlanet)

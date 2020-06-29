@@ -22,4 +22,8 @@ const ItemList = ({ data, children: renderItem, onItemSelected }) => {
   )
 }
 
+ItemList.defaultProps = {
+  children: ({ name }) => <span>{name}</span>
+}
+
 export default ItemList
