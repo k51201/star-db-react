@@ -4,8 +4,6 @@ import ErrorBoundary from '../error-boundary'
 import Row from '../row'
 import { StarshipList, StarshipDetails } from '../sw-components'
 
-import './starship-page.css'
-
 export default class StarshipPage extends Component {
   state = {
     selected: null

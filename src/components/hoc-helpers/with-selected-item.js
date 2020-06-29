@@ -7,7 +7,7 @@ const withSelectedItem = (View) => class extends Component {
     item: null,
     imageUrl: null,
     error: false,
-    loading: true,
+    loading: false,
   }
 
   componentDidMount() {
@@ -24,6 +24,7 @@ const withSelectedItem = (View) => class extends Component {
   updateItem() {
     const { selected, fetchItem, getImageUrl } = this.props
     if (selected) {
+      this.setState({ loading: true })
       fetchItem(selected)
         .then(item => this.setState({
           item,
@@ -36,14 +37,10 @@ const withSelectedItem = (View) => class extends Component {
 
   render() {
     const { item, imageUrl, loading, error } = this.state
-    if (!item) {
-      return <span>Select an item from the list</span>
-    } else {
-      const hasData = item && !(loading || error)
-
-      return hasData ? <View item={item} imageUrl={imageUrl} {...this.props} /> :
-        (error ? <ErrorIndicator /> : <Spinner />)
-    }
+    return loading ? <Spinner />
+      : error ? <ErrorIndicator />
+        : item ? <View item={item} imageUrl={imageUrl} {...this.props} />
+          : <span>Select an item from the list</span>
   }
 }
 
